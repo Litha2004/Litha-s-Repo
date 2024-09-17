@@ -1,0 +1,80 @@
+/*
+ * Class: CMSC203 
+ * Instructor:
+ * Description: (Give a brief description for each Class)
+ * Due: 09/17/2024
+ * Platform/compiler:
+ * I pledge that I have completed the programming assignment 
+* independently. I have not copied the code from a student or   * any source. I have not given my code to any student.
+ * Print your Name here: _Lithalethu Mkunqwana_________
+*/
+
+package assignment1;
+import java.util.Random;
+import java.util.Scanner;
+
+ 
+public class espGame  {
+
+    // Define constants for color file and prompt messages
+    final static String[] COLORS = {
+        "black", "white", "gray", "silver", "maroon", "red",
+        "purple", "fuchsia", "green", "lime", "olive", "yellow",
+        "navy", "blue", "teal", "aqua"
+    };
+
+    public static void main(String[] args) {
+        try (Scanner input = new Scanner(System.in)) {
+			Random random = new Random();
+
+			int correctGuesses = 0;
+
+			System.out.println("CMSC203 Assignment1: Test your ESP skills!");
+			System.out.print("Enter the filename: ");
+			// Display available colors
+			System.out.println("There are sixteen colors from a file:");
+			for (int i = 0; i < COLORS.length; i++) {
+			    System.out.println((i + 1) + " " + COLORS[i]);
+			}
+
+			// Repeat for 3 rounds
+			for (int round = 1; round <= 3; round++) {
+			    System.out.println("\nRound " + round);
+			    System.out.println("\nI am thinking of a color.");
+			    System.out.println("Is it one of the list of colors above?");
+			    System.out.print("Enter your guess: ");
+
+			    String userGuess = input.nextLine().trim().toLowerCase();
+			    int randomIndex = random.nextInt(COLORS.length); // Select a random color
+			    String selectedColor = COLORS[randomIndex];
+
+			    // Compare user's guess with selected color
+			    if (userGuess.equals(selectedColor)) {
+			        System.out.println("I was thinking of " + selectedColor + ".");
+			        correctGuesses++;
+			    } else {
+			        System.out.println("I was thinking of " + selectedColor + ".");
+			    }
+			}
+
+			// Display game results
+			System.out.println("\nGame Over");
+			System.out.println("You guessed " + correctGuesses + " out of 3 colors correctly.");
+
+			// Collect user information
+			System.out.print("Enter your name: ");
+			String userName = input.nextLine();
+
+			System.out.print("Describe yourself: ");
+			String userDescription = input.nextLine();
+
+			System.out.print("Due Date (MM/DD): ");
+			String dueDate = input.nextLine();
+
+			// Display user information
+			System.out.println("\nUser Name: " + userName);
+			System.out.println("User Description: " + userDescription);
+			System.out.println("Date: " + dueDate);
+		}
+    }
+}
