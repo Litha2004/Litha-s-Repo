@@ -1,14 +1,16 @@
 /* TwoDimArrayPractice
- * Students Work with this Java file
- * On Multi-dimensional Arrays
- */
+*  Students Work with this Java file
+*  On Multi-dimensional Arrays
+*/
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.awt.event.*;
 import java.util.*;
 
-public class TwoDimArrayPractice extends JFrame {
+public class TwoDimArrayPractice extends JFrame
+{
    // GUI components
    private JButton fillValues;
    private JButton printArray;
@@ -18,7 +20,7 @@ public class TwoDimArrayPractice extends JFrame {
 
    private ButtonHandler bh;
 
-   private static int[][] intArray;
+   private static int [][] intArray;
    private final int ROWS = 4;
    private final int COLUMNS = 20;
    private static int current1 = -1;
@@ -34,236 +36,493 @@ public class TwoDimArrayPractice extends JFrame {
 
    private Image offscreen;
 
-   public TwoDimArrayPractice() {
-      super("Choose your activity");
-      Container c = getContentPane();
-      c.setLayout(new FlowLayout());
+   public TwoDimArrayPractice( )
+   {
+      super( "Choose your activity" );
+      Container c = getContentPane( );
+      c.setLayout( new FlowLayout( ) );
 
-      fillValues = new JButton("Fill Values");
-      c.add(fillValues);
-      printArray = new JButton("Print Array");
-      c.add(printArray);
-      setValues = new JButton("Set Values");
-      c.add(setValues);
-      findMinimum = new JButton("Find Minimum");
-      c.add(findMinimum);
-      countFrequency = new JButton("Count Frequency");
-      c.add(countFrequency);
+      fillValues = new JButton( "Fill Values" );
+      c.add( fillValues );
+      printArray = new JButton( "Print Array" );
+      c.add( printArray );
+      setValues = new JButton( "Set Values" );
+      c.add( setValues );
+      findMinimum = new JButton( "Find Minimum" );
+      c.add( findMinimum );
+      countFrequency = new JButton( "Count Frequency" );
+      c.add( countFrequency );
 
-      bh = new ButtonHandler();
-      fillValues.addActionListener(bh);
-      printArray.addActionListener(bh);
-      setValues.addActionListener(bh);
-      findMinimum.addActionListener(bh);
-      countFrequency.addActionListener(bh);
+      bh = new ButtonHandler( );
+      fillValues.addActionListener( bh );
+      printArray.addActionListener( bh );
+      setValues.addActionListener( bh );
+      findMinimum.addActionListener( bh );
+      countFrequency.addActionListener( bh );
 
-      setSize(500, 550);
+      setSize( 500,550 );
 
       intArray = new int[ROWS][COLUMNS];
 
-      // Fill with random numbers between 50 and 80
-      Random rand = new Random();
-      for (int i = 0; i < intArray.length; i++) {
-         for (int j = 0; j < intArray[0].length; j++) {
-            intArray[i][j] = rand.nextInt(31) + 50;
-         }
+      // fill with random numbers between 50 and 80
+      Random rand = new Random( );
+      for ( int i = 0; i < intArray.length; i++ )
+      {
+       for ( int j = 0; j < intArray[0].length; j++ )
+       {
+         intArray[i][j] =  rand.nextInt( 31 ) + 50;
+       }
       }
 
-      bc = new BarChart(intArray);
+      bc = new BarChart( intArray );
 
-      // Print the array values to the console
-      System.out.println("Row\tValue");
-      for (int i = 0; i < intArray.length; i++) {
-         System.out.print(i + "\t");
-         for (int j = 0; j < intArray[i].length; j++) {
-            System.out.print(intArray[i][j] + " ");
-         }
-         System.out.println();
+      // print the array values
+      System.out.println( "Row\tValue" );
+      for ( int i = 0; i < intArray.length; i++ )
+      {
+        System.out.print( i + "\t" );
+        for ( int j = 0; j < intArray[i].length; j++ )
+        {
+          System.out.print( intArray[i][j] + " " );
+        }
+        System.out.println( );
       }
-      System.out.println();
+      System.out.println( );
 
-      setVisible(true);
-      offscreen = this.createImage(getSize().width, getSize().height);
-   }
-   
-
-   // 1. This method has been coded as an example
-   /** Fills the array with random numbers between 50 and 80 */
-   public void fillValues() {
-      Random rand = new Random();
-      for (int row = 0; row < intArray.length; row++) {
-         System.out.print(row + "\t");
-         for (int column = 0; column < intArray[row].length; column++) {
-            intArray[row][column] = rand.nextInt(31) + 50;
-            animate(row, column);  // Visual feedback
-         }
-         System.out.println();
-      }
+      setVisible( true );
+      offscreen = this.createImage( getSize( ).width, getSize( ).height );
    }
 
-   // 2. Method to print the array elements to the console, separated by a space
+   // 1.  This method has been coded as an example
+   /** Fills the array with random numbers between 50 and 80
+   *  The instance variable named intArray is the integer array to be
+   *  filled with values
+   */
+   public void fillValues( )
+   {
+    Random rand = new Random( );
+    for ( int row = 0; row < intArray.length; row++ )
+    {
+        System.out.print( row + "\t" );
+        for ( int column = 0; column < intArray[row].length; column++ )
+        {
+          intArray[row][column] = rand.nextInt( 31 ) + 50;
+          animate( row, column );  // needed to create visual feedback
+        }
+        System.out.println( );
+    }
+   }
+   // end of fillValues method
+
+   // 2.  Student writes this method
+   /** Prints array to the console, elements are separated by a space
+   *    The instance variable named intArray is the integer array to be printed
+   */
    public void printArray() {
-      for (int row = 0; row < intArray.length; row++) {
-         for (int column = 0; column < intArray[row].length; column++) {
-            System.out.print(intArray[row][column] + " ");
-            animate(row, column);  // For visual feedback
-         }
-         System.out.println();  // New line after each row
-      }
-   }
+	    for (int row = 0; row < intArray.length; row++) {
+	        System.out.print(row + "\t");
+	        for (int column = 0; column < intArray[row].length; column++) {
+	            System.out.print(intArray[row][column] + " ");
+	            animate(row, column);
+	        }
+	        System.out.println();
+	    }
+	}
 
-   // 3. Method to set all elements in a specified row to a specified value
+  // end of printArray method
+
+   // ***** 3.  Student writes this method
    /** Sets all the elements in the specified row to the specified value
-    * The instance variable named intArray is the integer array
-    * @param value  the value to assign to the element of the row
-    * @param row  the row in which to set the elements to value
-    */
+   *    The instance variable named intArray is the integer array
+   *  @param value  the value to assign to the element of the row
+   *  @param row  the row in which to set the elements to value
+   */
    public void setValues(int value, int row) {
-      // Check if the row is within bounds
-      if (row>=0 &&row < intArray.length) {
-         // Loop through each column in the specified row
-         for (int column = 0; column < intArray[row].length; column++) {
-            // Set each element in the row to the specified value
-            intArray[row][column] = value;
-            // Call animate for visual feedback
-            animate(row, column);
-         }
-      } else {
-         System.out.println("Invalid row index: " + row);
-      }
-   }
+	    for (int column = 0; column < intArray[row].length; column++) {
+	        intArray[row][column] = value;
+	        animate(row, column);
+	    }
+	}
+   // end of setValues method
 
-   // 4. Method to find the minimum value in the specified column
-   /** Finds the minimum value in the specified column
-    * The instance variable named intArray is the integer array
-    * @param column  the column in which to find the minimum value
-    * @return the minimum value in the specified column
-    */
+   // 4.  Student writes this method
+   /** Finds minimum value in the specified column
+   *    The instance variable named intArray is the integer array
+   *  @param column the column to search
+   *  @return   the minimum value found in the column
+   */
    public int findMinimum(int column) {
-	      int minValue = Integer.MAX_VALUE;
-	      for (int row = 0; row < intArray.length; row++) {
-	         if (column < intArray[row].length) {
-	            if (intArray[row][column] < minValue) {
-	               minValue = intArray[row][column];
-	            }
-	         }
-	      }
-	      return minValue;
-	   }
+	    int min = intArray[0][column];
+	    for (int row = 0; row < intArray.length; row++) {
+	        if (intArray[row][column] < min) {
+	            min = intArray[row][column];
+	        }
+	        animate(row, column, min);
+	    }
+	    return min;
+	}
+   // end of findMinimumn method
 
-  
-   // 5. Method to count occurrences of a specified value in the array
-   /** Counts the number of times a given value is found in the array
-    * The instance variable named intArray is the integer array
-    * @param value  the value to count in the array
-    * @return the frequency of the given value in the array
-    */
+   // 5.  Student writes this method
+   /** Finds the number of times value is found in the array
+   *    The instance variable named intArray is the integer array
+   *  @param value  the value to count
+   *  @return   the number of times value was found
+   */
    public int countFound(int value) {
-      int count = 0; // Initialize the count of occurrences
+	    int count = 0;
+	    for (int row = 0; row < intArray.length; row++) {
+	        for (int column = 0; column < intArray[row].length; column++) {
+	            if (intArray[row][column] == value) {
+	                count++;
+	            }
+	            animate(row, column, count);
+	        }
+	    }
+	    return count;
+	}   // end of countFound method
 
-      // Loop through each row in the array
-      for (int row = 0; row < intArray.length; row++) {
-         // Loop through each column in the current row
-         for (int column = 0; column < intArray[row].length; column++) {
-            // Check if the current element matches the specified value
-            if (intArray[row][column] == value) {
-               count++; // Increment count if a match is found
-            }
-            // Call animate for visual feedback
-            animate(row, column);
+   public void startActivity( int act )
+   {
+      bc.setActivity( act );
+      boolean goodInput = false;
+      String answer = "";
+      switch( act )
+      {
+       case( 0 ): fillValues( );
+                  JOptionPane.showMessageDialog( null, "Array filled with new values" );
+                  break;
+
+       case( 1 ): printArray( );
+                  JOptionPane.showMessageDialog( null, "Array printed" );
+                  break;
+
+       case( 2 ):
+        while ( !goodInput || key < 50 || key > 80 )
+        {
+         try
+         {
+           answer = JOptionPane.showInputDialog( null, "Enter a value between 50 and 80" );
+           if ( answer != null )
+           {
+             key = Integer.parseInt( answer );
+             goodInput = true;
+           }
+           else
+           {
+             goodInput = false;
+             break;
+           }
+        }
+        catch( Exception e )
+        {}
+       }
+       if ( goodInput )
+       {
+        goodInput = false;
+        while ( !goodInput || rowSelected < 0 || rowSelected > 3 )
+        {
+         try
+         {
+           answer = JOptionPane.showInputDialog( null, "Enter a row number between 0 and 3" );
+           if ( answer != null )
+           {
+              rowSelected = Integer.parseInt( answer );
+              goodInput = true;
+           }
+           else
+           {
+              goodInput = false;
+              break;
+           }
          }
+         catch( Exception e )
+         {}
+        }
       }
+      if ( goodInput )
+      {
+        bc.setKey ( key );
+        setValues( key, rowSelected );
+        String message = "";
+        if ( bc.getCheckNewValues( ) )
+          message = " correctly";
+        else
+          message = " incorrectly";
+        JOptionPane.showMessageDialog( null, "Values in row " + rowSelected + " set to " + key + message );
+      }
+      break;
+
+     case( 3 ):
+      while ( !goodInput || columnSelected < 0 || columnSelected > 19 )
+      {
+       try
+       {
+         answer = JOptionPane.showInputDialog( null, "Enter a column number between 0 and 19" );
+         if ( answer != null )
+         {
+           columnSelected = Integer.parseInt( answer );
+           goodInput = true;
+         }
+         else
+         {
+           goodInput = false;
+           break;
+         }
+       }
+       catch( Exception e )
+       {}
+      }
+      if ( goodInput )
+      {
+       int a = findMinimum( columnSelected );
+       String feedbackMin = "";
+       if ( a == bc.getExactMinimum( ) )
+        feedbackMin = "\nThis is correct";
+       else
+        feedbackMin = "\nThis is incorrect";
       
-      // Return the count of occurrences of the specified value
-      return count;
+   String displayMessageMin = "In column " + columnSelected + ", you found a minimum value of ";
+       displayMessageMin += a + feedbackMin;
+       JOptionPane.showMessageDialog( null, displayMessageMin );
+      }
+      break;
+     case( 4 ):
+      while ( !goodInput || key < 50 || key > 80 )
+      {
+       try
+       {
+         answer = JOptionPane.showInputDialog( null, "Enter a value between 50 and 80" );
+         if ( answer != null )
+         {
+           key = Integer.parseInt( answer );
+           goodInput = true;
+         }
+         else
+         {
+           goodInput = false;
+           break;
+         }
+       }
+       catch( Exception e )
+       {}
+      }
+      if ( goodInput )
+      {
+       int frequency = countFound( key );
+       String feedbackFrequency = "";
+       if ( frequency == bc.getExactFrequencyCount( ) )
+        feedbackFrequency = "\nThis is correct";
+       else
+        feedbackFrequency = "\nThis is incorrect";
+       
+   String plural = "";
+       if ( frequency != 1 )
+        plural = "s";
+      
+   String displayMessageFrequency = "You found " + key + " " + frequency + " time" + plural;
+       displayMessageFrequency+= feedbackFrequency;
+   
+       if ( frequency != -1 )
+         JOptionPane.showMessageDialog( null, displayMessageFrequency );
+       else
+         JOptionPane.showMessageDialog( null, "You did not find the value " + key );
+      }
+     break;
+     }
+     enableButtons( );
    }
 
-   // Main method
-   public static void main(String[] args) {
-      app = new TwoDimArrayPractice();
-      app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   public static int getCurrent1( )
+   {
+    return current1;
    }
 
-   // Animation method
-   private void animate(int row, int column) {
-      // Add animation implementation here
+   public static int getCurrent2( )
+   {
+    return current2;
    }
 
- 
+   public static int getCounter( )
+   {
+    return counter;
+   }
 
-   private class ButtonHandler implements ActionListener {
-	    public void actionPerformed(ActionEvent e) {
-	        if (e.getSource() == fillValues) {
-	            fillValues();
-	        } else if (e.getSource() == printArray) {
-	            printArray();
-	        } else if (e.getSource() == setValues) {
-	            // Prompt the user for the row and value
-	            try {
-	                int row = Integer.parseInt(JOptionPane.showInputDialog("Enter the row to set values (0 - " + (ROWS - 1) + "):"));
-	                int value = Integer.parseInt(JOptionPane.showInputDialog("Enter the value to set for all elements in row " + row + ":"));
-	                setValues(value, row);
-	            } catch (NumberFormatException ex) {
-	                System.out.println("Invalid input.");
-	            }
-	        } else if (e.getSource() == findMinimum) {
-	            // Prompt the user for the column
-	            try {
-	                int column = Integer.parseInt(JOptionPane.showInputDialog("Enter the column to find the minimum (0 - " + (COLUMNS - 1) + "):"));
-	                int minValue = findMinimum(column);
-	                JOptionPane.showMessageDialog(null, "Minimum value in column " + column + " is: " + minValue);
-	            } catch (NumberFormatException ex) {
-	                System.out.println("Invalid input.");
-	            }
-	        } else if (e.getSource() == countFrequency) {
-	            // Prompt the user for the value to count
-	            try {
-	                int value = Integer.parseInt(JOptionPane.showInputDialog("Enter the value to count in the array:"));
-	                int frequency = countFound(value);
-	                JOptionPane.showMessageDialog(null, "Value " + value + " found " + frequency + " times in the array.");
-	            } catch (NumberFormatException ex) {
-	                System.out.println("Invalid input.");
-	            }
-	        }
-	    }
-	}
-   private class BarChart {
-	    private int[][] array;
-	    private int barWidth = 20; // Width of each bar
-	    private int spacing = 5; // Space between bars
+   public static int [][] getArray( )
+   {
+    return intArray;
+   }
 
-	    // Constructor to initialize with the array
-	    public BarChart(int[][] array) {
-	        this.array = array;
-	    }
+   private void animate( int row, int column )
+   {
+     if ( bc.getActivity( ) >= 0 && bc.getActivity( ) <= 2 )
+     {
+      try
+      {
+       current1 = row;
+       current2 = column;
+       bc.setArray( intArray );
 
-	    // Method to draw the bar chart on a Graphics object
-	    public void draw(Graphics g) {
-	        // Set up some basic configurations
-	        int chartHeight = 300; // Arbitrary height for the chart area
-	        int maxValue = 80; // Assuming the maximum value in the array for scaling
-	        int xOffset = 50; // Offset for x position to start drawing
+       Graphics g = offscreen.getGraphics( );
+       paint( g );
+       g = this.getGraphics( );
+       g.drawImage( offscreen, 0, 0, this );
 
-	        g.setColor(Color.BLACK);
-	        g.drawString("Array Bar Chart", xOffset, 20);
+       if ( bc.getActivity( ) == 0 )
+          Thread.sleep( 200 );
+       else
+          Thread.sleep( 500 );
+      }
+      catch ( InterruptedException e )
+      {
+       System.out.println( "IE Exception " + e.getMessage( ) );
+       System.out.println( e.toString( ) );
+      }
+     }
+     else
+     {
+      // call to animate with wrong number of arguments
+      JOptionPane.showMessageDialog( null, "Wrong number of arguments to animate method" );
+      System.exit( 1 );
+     }
+    }
 
-	        // Loop through each row and column in the array
-	        for (int row = 0; row < array.length; row++) {
-	            int yPosition = 40 + (row * (barWidth + spacing)); // Position for each row
+    private void animate( int row, int column, int intermedResult )
+    {
+     if ( bc.getActivity( ) == 3 || bc.getActivity( ) == 4 )
+     {
+      try
+      {
+       current1 = row;
+       current2 = column;
+       bc.setStudentResult( intermedResult );
+       bc.setArray( intArray );
 
-	            for (int column = 0; column < array[row].length; column++) {
-	                int barHeight = (int) ((double) array[row][column] / maxValue * chartHeight);
+       Graphics g = offscreen.getGraphics( );
+       paint( g );
+       g = this.getGraphics( );
+       g.drawImage( offscreen, 0, 0, this );
 
-	                // Draw each bar
-	                g.setColor(Color.BLUE);
-	                int xPosition = xOffset + (column * (barWidth + spacing));
-	                g.fillRect(xPosition, yPosition - barHeight, barWidth, barHeight);
+       Thread.sleep( 500 );
+      }
+      catch ( InterruptedException e )
+      {
+       System.out.println( "IE Exception " + e.getMessage( ) );
+       System.out.println( e.toString( ) );
+      }
+     }
+     else
+     {
+      // call to animate has wrong number of arguments
+      JOptionPane.showMessageDialog( null, "Wrong number of arguments to animate method" );
+      System.exit( 1 );
+     }
+    }
 
-	                // Optionally, add value labels on top of each bar
-	                g.setColor(Color.BLACK);
-	                g.drawString(String.valueOf(array[row][column]), xPosition, yPosition - barHeight - 5);
-	            }
-	        }
-	    }
-	}
+    public void paint( Graphics g )
+    {
+      if ( ( current1 != -1 && current2 != -1 ) || firstTime )
+      {
+         super.paint( g );
+         bc.draw( g );
+         bc.updateBarChart( key, current1, current2, g );
+         firstTime = false;
+      }
+    }
+
+    public static void main( String [] args )
+    {
+      app = new TwoDimArrayPractice( );
+      app.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+    }
+
+    public void disableButtons( )
+    {
+     fillValues.setEnabled( false );
+     printArray.setEnabled( false );
+     setValues.setEnabled( false );
+     countFrequency.setEnabled( false );
+     findMinimum.setEnabled( false );
+    }
+
+    public void enableButtons( )
+    {
+     fillValues.setEnabled( true );
+     printArray.setEnabled( true );
+     setValues.setEnabled( true );
+     countFrequency.setEnabled( true );
+     findMinimum.setEnabled( true );
+    }
+
+    private class ButtonHandler implements ActionListener
+    {
+     private boolean on = true;
+     public void actionPerformed( ActionEvent e )
+     {
+       PrintArrayT t = new PrintArrayT( app );
+
+      if ( e.getSource( ) == fillValues )
+      {
+        disableButtons( );
+        fillValues.requestFocus( );
+        bc.setActivity( 0 );
+        disableButtons( );
+        t.start( );
+      }
+      else if ( e.getSource( ) == printArray )
+      {
+        disableButtons( );
+        printArray.requestFocus( );
+        bc.setActivity( 1 );
+        t.start( );
+      }
+      else if ( e.getSource( ) == setValues )
+      {
+        disableButtons( );
+        setValues.requestFocus( );
+        bc.setActivity( 2 );
+        t.start( );
+      }
+      else if ( e.getSource( ) == findMinimum )
+      {
+        disableButtons( );
+        findMinimum.requestFocus( );
+        bc.setActivity( 3 );
+        t.start( );
+      }
+      else if ( e.getSource( ) == countFrequency )
+      {
+        disableButtons( );
+        countFrequency.requestFocus( );
+        bc.setActivity( 4 );
+        t.start( );
+      }
+    }
+   }
+
+   public void resetButtonSelection( )
+   {
+      fillValues.setSelected( false );
+      printArray.setSelected( false );
+      setValues.setSelected( false );
+      findMinimum.setSelected( false );
+      countFrequency.setSelected( false );
+   }
+
+   private class PrintArrayT extends Thread
+   {
+     int [][] arr;
+     TwoDimArrayPractice s1;
+     public PrintArrayT ( TwoDimArrayPractice s )
+     {
+       arr = TwoDimArrayPractice.intArray;
+       s1 = s;
+     }
+     public void run( )
+     {
+       startActivity( bc.getActivity( ) );
+       enableButtons( );
+       // deselectButtons( );
+     }
+   }
 }
