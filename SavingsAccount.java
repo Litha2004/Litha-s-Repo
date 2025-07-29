@@ -1,34 +1,30 @@
 public class SavingsAccount extends BankAccount {
-    // Instance variables
-    private static final double RATE = 0.025; // Annual interest rate
-    private int savingsNumber = 0;            // Savings account identifier
-    private String accountNumber;             // Hidden account number
+    private double rate = 0.025; // 2.5%
+    private int savingsNumber = 0;
+    private String accountNumber; // hides superclass accountNumber
 
-    // Constructor
+    // Constructor: name and initial balance
     public SavingsAccount(String name, double initialBalance) {
         super(name, initialBalance);
-        // Initialize account number with "-0"
         accountNumber = super.getAccountNumber() + "-" + savingsNumber;
+    }
+
+    // Copy constructor: creates new savings account from an existing one
+    public SavingsAccount(SavingsAccount original, double initialBalance) {
+        super(original, initialBalance);
+        this.savingsNumber = original.savingsNumber + 1;
+        this.accountNumber = super.getAccountNumber() + "-" + this.savingsNumber;
     }
 
     // Method to post monthly interest
     public void postInterest() {
-        // Calculate one month's worth of interest
-        double monthlyInterest = (getBalance() * RATE) / 12;
-        // Deposit the interest into the account
+        double monthlyInterest = getBalance() * (rate / 12);
         deposit(monthlyInterest);
     }
 
-    // Override getAccountNumber method
+    // Override getAccountNumber
     @Override
     public String getAccountNumber() {
         return accountNumber;
-    }
-
-    // Copy constructor
-    public SavingsAccount(SavingsAccount original, double initialBalance) {
-        super(original, initialBalance);
-        this.savingsNumber = original.savingsNumber + 1;
-        this.accountNumber = super.getAccountNumber() + "-" + savingsNumber;
     }
 }
